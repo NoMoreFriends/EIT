@@ -1,0 +1,31 @@
+TEST 1 :
+15 000 d'entrainement, 15 000 de dev
+5993 colonnes (mots differents dans le corpus)
+
+1 - Logistic Regression
+--- 123.06121611595154 seconds ---
+Score for evaluation set : 0.5312
+
+2 - Random Forest
+--- 65.77688884735107 seconds ---
+Score for evaluation set : 0.528866666667
+
+3 - Linear SVC
+--- 144.7248091697693 seconds ---
+Score for evaluation set : 0.552066666667
+
+4 - Bagging ExtraTree
+--- 23.603469848632812 seconds ---
+Score for evaluation set : 0.526333333333
+
+5 - Bagging DecisionTree
+--- 79.40038633346558 seconds ---
+Score for evaluation set : 0.531733333333
+
+6 - DecisionTree
+--- 9.34084963798523 seconds ---
+Score for evaluation set : 0.503133333333
+
+7 - Boosting
+--- 118.25183367729187 seconds ---
+Score for evaluation set : 0.5308
