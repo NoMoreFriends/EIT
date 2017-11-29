@@ -2,8 +2,8 @@ import enchant
 from nltk.metrics import edit_distance
 
 class SpellingReplacer(object):
-    def __init__(self, dict_name='fr_FR', max_dist=2):
-        self.spell_dict = enchant.Dict(dict_name)
+    def __init__(self, max_dist=3):
+        self.spell_dict = enchant.request_pwl_dict("dico.txt")
         self.max_dist = max_dist
 
     def replace(self, word):

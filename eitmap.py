@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Wed May 31 13:14:36 2017
+"""Created on Wed May 31 13:14:36 2017
 
 @author: ismailerradi
 """
@@ -40,6 +39,10 @@ def normalize(s):
     return s.lower()
 
 def tokens(line):
+    words = n.RegexpTokenizer(r'\w+').tokenize(line)
+    return words
+
+def tokens_corr(line):
     words= n.RegexpTokenizer(r'\w+').tokenize(line)
     for i in range(len(words)):
         words[i] = correction.replace(words[i])
@@ -47,15 +50,14 @@ def tokens(line):
         
 
 def fill_map(df):
-    hashmap = {}
     j = 0
     for i,d in enumerate(df['rawText']):
-        words = tokens(d)
+        words = tokens_corr(d)
+        df['rawText'][i] = ' '.join(words)
         for k in words:
             if k not in hashmap:
                 hashmap[k] = j
                 j = j+1
-    return hashmap
 
 
 def model_class(set):
@@ -97,24 +99,26 @@ for i in DEL:
     data.drop(i, axis=1, inplace=True)
     dev.drop(i, axis=1, inplace=True)
 
-data = data[:15000]
-dev = dev[:15000]
+data = data[:30000]
+dev = dev[:30000]
 
 data['rawText'] = data['rawText'].apply(normalize)
 dev['rawText'] = dev['rawText'].apply(normalize)
 
+"""hashmap = {}
 correction = SpellingReplacer()
-hashmap = fill_map(pd.concat([data, dev], ignore_index=True))
+fill_map(data)
+fill_map(dev)
 cols = list(hashmap.keys())
 print(cols)
 print(len(cols))
-"""trainX = model_class(data)
+trainX = model_class(data)
 evalX = model_class(dev)
-save_sparse('/root/Bureau/train15C', trainX)
-save_sparse('/root/Bureau/eval15C', evalX)
-
-trainX = load_sparse('/root/Bureau/train15.npz')
-evalX = load_sparse('/root/Bureau/eval15.npz')
+save_sparse('/root/Bureau/train_spell30', trainX)
+save_sparse('/root/Bureau/eval_spell30', evalX)
+"""
+trainX = load_sparse('/root/Bureau/train_spell30.npz')
+evalX = load_sparse('/root/Bureau/eval_spell30.npz')
 trainY = data['ICD10'].values
 evalY = dev['ICD10'].values
 print("trainX :", trainX.shape)
@@ -133,5 +137,3 @@ for name, model in models:
     print("--- %s seconds ---" % (time.time() - start_time))
     print(name)
     print('Score for evaluation set :', model.score(evalX, evalY))
-"""
-
