@@ -6,7 +6,7 @@ TEST 1 :
 --- 123.06121611595154 seconds ---
 Score for evaluation set : 0.5312
 
-2 - Random Forest
+2 - Random Forest(10)
 --- 65.77688884735107 seconds ---
 Score for evaluation set : 0.528866666667
 
@@ -29,3 +29,16 @@ Score for evaluation set : 0.503133333333
 7 - Boosting
 --- 118.25183367729187 seconds ---
 Score for evaluation set : 0.5308
+
+TEST 1 :
+15 000 d'entrainement, 15 000 de dev
+4088 colonnes (mots differents dans le corpus)
+
+1- RandomForest(10)
+--- 44.12852120399475 seconds ---
+Score for evaluation set : 0.5434
+
+2- Linear SVC
+--- 110.0664632320404 seconds ---
+Score for evaluation set : 0.5666
+
